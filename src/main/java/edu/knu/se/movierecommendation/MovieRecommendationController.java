@@ -1,5 +1,6 @@
 package edu.knu.se.movierecommendation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -7,6 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MovieRecommendationController {
+    private UserRepository userRepository;
+
+    @Autowired
+    public MovieRecommendationController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/")
     public String greeting() {
