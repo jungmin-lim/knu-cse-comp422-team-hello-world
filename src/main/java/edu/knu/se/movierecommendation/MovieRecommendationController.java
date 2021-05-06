@@ -21,8 +21,8 @@ public class MovieRecommendationController {
     }
 
     @PutMapping("/users")
-    public String addUser(User user) {
-        boolean result = (userRepository.save(user) != null);
+    public String addUser(String uid, String passwd) {
+        boolean result = (userRepository.save(new User(uid, passwd)) != null);
         return "{ \"result\": " + (result ? "SUCCESS" : "FAILED") + " }";
     }
 
