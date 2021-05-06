@@ -35,7 +35,7 @@ public class MovieRecommendationController {
     @Transactional
     @DeleteMapping(value = "/users", produces = "aplication/json; charset=UTF-8")
     public String removeUser(String uid) {
-        boolean result = (userRepository.removeByUid(uid) != null);
+        boolean result = !userRepository.removeByUid(uid).isEmpty();
         return "{ \"result\": " + (result ? "SUCCESS" : "FAILED") + " }";
     }
 
