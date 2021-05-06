@@ -13,8 +13,9 @@ class User {
     private String passwd;
 
     User() {}
+
     User(String uid, String passwd) {
-        this.uid= uid;
+        this.uid = uid;
         this.passwd = passwd;
     }
 
@@ -47,7 +48,7 @@ class User {
         if(this == o) {
             return true;
         }
-        if(!(o instanceof User)) {
+        if(!(o.getClass().equals(User.class))) {
             return false;
         }
 
