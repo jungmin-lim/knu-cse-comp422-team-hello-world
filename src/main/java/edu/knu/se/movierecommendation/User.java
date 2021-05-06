@@ -13,9 +13,9 @@ class User {
     private String passwd;
 
     User() {}
-    User(String username, String password) {
-        this.username = name;
-        this.password = password;
+    User(String uid, String passwd) {
+        this.uid= uid;
+        this.passwd = passwd;
     }
 
     public Long getId() {
@@ -23,23 +23,23 @@ class User {
     }
 
     public String getUsername() {
-        return this.username;
+        return this.uid;
     }
 
     public String getPassword() {
-        return this.password;
+        return this.passwd;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String uid) {
+        this.uid = uid;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String passwd) {
+        this.passwd = passwd;
     }
 
     @Override
@@ -52,16 +52,16 @@ class User {
         }
 
         User user = (User) o;
-        return Objects.equals(this.id, employee.id) && Objects.equals(this.username, user.username) && Objects.equals(this.password, user.password);
+        return Objects.equals(this.id, user.id) && Objects.equals(this.uid, user.uid) && Objects.equals(this.passwd, user.passwd);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.username, this.password);
+        return Objects.hash(this.id, this.uid, this.passwd);
     }
 
     @Override
     public String toString() {
-        return "User{" + "id=" + this.id + ", username='" + this.username + '\'' + ", password='" + this.password + '\'' + '}';
+        return "User{" + "id=" + this.id + ", uid='" + this.uid+ '\'' + ", passwd='" + this.passwd + '\'' + '}';
     }
 }
