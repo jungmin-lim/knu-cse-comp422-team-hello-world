@@ -25,4 +25,9 @@ public class MovieRecommendationController {
         return "{ \"result\": " + (result ? "SUCCESS" : "FAILED") + " }";
     }
 
+    @GetMapping("/users")
+    public String listUsers() {
+        return userRepository.findAll().toString();
+    }
+
 }
