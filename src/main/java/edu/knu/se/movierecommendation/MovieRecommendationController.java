@@ -22,8 +22,12 @@ public class MovieRecommendationController {
 
     @PutMapping("/users")
     public String addUser(String uid, String passwd) {
-        boolean result = (userRepository.save(new User(uid, passwd)) != null);
-        return "{ \"result\": " + (result ? "SUCCESS" : "FAILED") + " }";
+        if (userRepository.findByUid(uid) != null) {
+            // An user with this uid already exists.
+            return "{ \"result\": \"FAILED\" }";
+        }
+        boolean saveResult = (userRepository.save(new User(uid, passwd)) != null);
+        return "{ \"result\": " + (saveResult ? "SUCCESS" : "FAILED") + " }";
     }
 
     @DeleteMapping("/users")
