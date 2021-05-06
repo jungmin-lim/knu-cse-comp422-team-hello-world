@@ -22,13 +22,13 @@ public class MovieRecommendationController {
 
     @PutMapping("/users")
     public String addUser(User user) {
-        boolean result = (userRepository.save(user) == null);
+        boolean result = (userRepository.save(user) != null);
         return "{ \"result\": " + (result ? "SUCCESS" : "FAILED") + " }";
     }
 
     @DeleteMapping("/users")
     public String removeUser(String uid) {
-        boolean result = (userRepository.removeByUid(uid) == null);
+        boolean result = (userRepository.removeByUid(uid) != null);
         return "{ \"result\": " + (result ? "SUCCESS" : "FAILED") + " }";
     }
 
