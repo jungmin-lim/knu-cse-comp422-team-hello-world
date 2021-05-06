@@ -30,4 +30,9 @@ public class MovieRecommendationController {
         return userRepository.findAll().toString();
     }
 
+    @GetMapping("/users/_count_")
+    public String countUsers() {
+        return Long.toString(userRepository.count());
+    }
+
 }
