@@ -17,36 +17,46 @@ public class MovieRecommendationController {
     }
 
     @GetMapping(value = "/")
-    public String greeting() {
-        return "Hello, world!";
+    public Result greeting() {
+        Result result = new Result();
+        result.setResult("Hello, world!");
+        return result;
     }
 
     @Transactional
-    @PutMapping(value = "/users", produces = "aplication/json; charset=UTF-8")
-    public String addUser(String uid, String passwd) {
+    @PutMapping(value = "/users")
+    public Result addUser(String uid, String passwd) {
+        Result result = new Result();
         if (userRepository.findByUid(uid) != null) {
             // An user with this uid already exists.
-            return "{ \"result\": \"FAILED\" }";
+            result.setResult("FAILED");
+            return result;
         }
         boolean saveResult = (userRepository.save(new User(uid, passwd)) != null);
-        return "{ \"result\": " + (saveResult ? "SUCCESS" : "FAILED") + " }";
+        result.setResult(saveResult ? "SUCCESS" : "FAILED");
+        return result;
     }
 
     @Transactional
-    @DeleteMapping(value = "/users", produces = "aplication/json; charset=UTF-8")
-    public String removeUser(String uid) {
-        boolean result = !userRepository.removeByUid(uid).isEmpty();
-        return "{ \"result\": " + (result ? "SUCCESS" : "FAILED") + " }";
+    @DeleteMapping(value = "/users")
+    public Result removeUser(String uid) {
+        Result result = new Result();
+        boolean removeResult = !userRepository.removeByUid(uid).isEmpty();
+        result.setResult(removeResult ? "SUCCESS" : "FAILED");
+        return result;
     }
 
-    @GetMapping(value = "/users", produces = "application/json; charset=UTF-8")
-    public String listUsers() {
-        return userRepository.findAll().toString();
+    @GetMapping(value = "/users")
+    public Result listUsers() {
+        Result result = new Result();
+        result.setResult(userRepository.findAll().toString());
+        return result;
     }
 
-    @GetMapping(value = "/users/_count_", produces = "application/json; charset=UTF-8")
-    public String countUsers() {
-        return Long.toString(userRepository.count());
+    @GetMapping(value = "/users/_count_")
+    public Result countUsers() {
+        Result result = new Result();
+        result.setResult(Long.toString(userRepository.count()));
+        return result;
     }
-
 }
