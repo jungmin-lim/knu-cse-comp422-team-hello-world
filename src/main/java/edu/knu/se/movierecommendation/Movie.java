@@ -1,17 +1,25 @@
 package edu.knu.se.movierecommendation;
 
 import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-class Movie {
-    private @Id @GeneratedValue Long id;
+@Table(name="movie")
+public class Movie {
+    @Id 
+    @GeneratedValue 
+    @Column(name="id") 
+    private Long id;
+
     private String movieId;
     private String title;
     private String[] genres;
+
+    @OneToMany(mappedBy="movie")
+    private Set<MovieRating> ratings = new HashSet<>();
 
     Movie() {}
 
@@ -36,6 +44,9 @@ class Movie {
     public String[] getGenres() {
         return this.genres;
     }
+    public Set<MovieRating> getRatings() {
+        return ratings;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -53,6 +64,10 @@ class Movie {
         this.genres = genreList.split("\\|");
     }
 
+    public void setRatings(Set<MovieRating> ratings) {
+        this.ratings = ratings;
+    }
+
     @Override
     public boolean equals(Object o) {
         if(this == o) {
@@ -64,16 +79,18 @@ class Movie {
         }
 
         Movie movie = (Movie) o;
-        return Objects.equals(this.id, movie.id) && Objects.equals(this.movieId, movie.movieId) && Objects.equals(this.title, movie.title) && Objects.equals(this.genres, movie.genres);
+        return Objects.equals(this.id, movie.id) && Objects.equals(this.movieId, movie.movieId) 
+            && Objects.equals(this.title, movie.title) && Objects.equals(this.genres, movie.genres) && Objects.equals(this.ratings, movie.ratings);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id , this.movieId, this.title, this.genres);
+        return Objects.hash(this.id , this.movieId, this.title, this.genres, this.ratings);
     }
 
     @Override
     public String toString() {
-        return "User{" + "id=" + this.id + ", movieId='" + this.movieId + '\'' + ", title='" + this.title + '\'' + ", genres='" + this.genres + '\'' + '}';
+        return "User{" + "id=" + this.id + ", movieId='" + this.movieId + '\'' 
+            + ", title='" + this.title + '\'' + ", genres='" + this.genres + '\'' + ", ratings='" + this.ratings + '\'' + '}';
     }
 }

@@ -1,6 +1,8 @@
 package edu.knu.se.movierecommendation;
 
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MovieRecommendationController {
+    private MovieRepository movieRepository;
     private UserRepository userRepository;
 
     @Autowired
-    public MovieRecommendationController(UserRepository userRepository) {
+    public MovieRecommendationController(MovieRepository movieRepository, UserRepository userRepository) {
+        this.movieRepository = movieRepository;
         this.userRepository = userRepository;
     }
 
@@ -56,5 +60,16 @@ public class MovieRecommendationController {
     @GetMapping(value = "/users/_count_")
     public Long countUsers() {
         return userRepository.count();
+    }
+
+    @GetMapping(value = "/users/{id}")
+    public List<String> getRatedMovies(String uid) {
+        Set<MovieRating> ratings = userRepository.findByUid(uid).getRatings();
+        List<String> ratedMovies = new ArrayList<Long>(ratings.size());
+        for(MovieRating x : ratings) {
+            ratedMovies.add(x.getMovie().getMovieId());
+        }
+
+        return ratedMovies;
     }
 }
