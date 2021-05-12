@@ -3,6 +3,7 @@ package edu.knu.se.movierecommendation;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class MovieRatingKey implements Serializable { 
@@ -38,7 +39,7 @@ public class MovieRatingKey implements Serializable {
 
     @Override
     public int hashCode() {
-        return Object.hash(this.userId, this.movieId) ;
+        return Objects.hash(this.userId, this.movieId) ;
     }
 
     @Override
@@ -46,10 +47,12 @@ public class MovieRatingKey implements Serializable {
         if(this == o) {
             return true;
         }
-        if(!this.getClass().equals(o.getClass)) {
+        if(!this.getClass().equals(o.getClass())) {
             return false;
         }
-
-        return Object.equals(this.userId, o.userId) && Object.equals(this.movieId, o.movieId);
+        
+        MovieRatingKey key = (MovieRatingKey) o;
+        
+        return Objects.equals(this.userId, key.userId) && Objects.equals(this.movieId, key.movieId);
     }
 }

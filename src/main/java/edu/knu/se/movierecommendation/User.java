@@ -71,7 +71,7 @@ public class User {
 
         User user = (User) o;
         return Objects.equals(this.id, user.id) && Objects.equals(this.uid, user.uid) 
-            && Objects.equals(this.passwd, user.passwd) && Objects.equals(this.ratings, o.ratings);
+            && Objects.equals(this.passwd, user.passwd) && Objects.equals(this.ratings, user.ratings);
     }
 
     @Override

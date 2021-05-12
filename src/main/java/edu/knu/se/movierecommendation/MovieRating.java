@@ -71,7 +71,8 @@ public class MovieRating {
         if(!this.getClass().equals(o.getClass())) {
             return false;
         }
-
-        return Object.equals(this.id, o.id) && Object.equals(this.user, o.user) && Object.equals(this.movie, o.movie) && Object.equals(this.rating, o.rating);
+        
+        MovieRating rating = (MovieRating) o;
+        return Objects.equals(this.id, rating.id) && Objects.equals(this.user, rating.user) && Objects.equals(this.movie, rating.movie) && Objects.equals(this.rating, rating.rating);
     }
 }
