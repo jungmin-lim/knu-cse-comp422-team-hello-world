@@ -3,10 +3,10 @@ package edu.knu.se.movierecommendation;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "mvoie_rating")
+@Table(name = "movie_rating")
 public class MovieRating {
     @EmbeddedId
-    MovieRanknigKey id;
+    MovieRatigKey id;
 
     @ManyToOne
     @MapsId("userId")
