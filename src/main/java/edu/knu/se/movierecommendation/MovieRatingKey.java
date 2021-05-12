@@ -28,11 +28,11 @@ public class MovieRatingKey implements Serializable {
         return movieId;
     }
 
-    public setUserId(Long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public setMovieId(Long movieId) {
+    public void setMovieId(Long movieId) {
         this.movieId = movieId;
     }
 

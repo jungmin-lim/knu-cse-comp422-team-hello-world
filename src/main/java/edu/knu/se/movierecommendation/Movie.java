@@ -49,27 +49,27 @@ public class Movie {
         return ratings;
     }
 
-    public setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public setMovieId(String movieId) {
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
 
-    public setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public setGenres(String genreList) {
-        this.genres = listOfGenres.split("\\|");
+    public void setGenres(String genreList) {
+        this.genres = genreList.split("\\|");
     }
 
-    public setRatings(Set<MovieRating> ratings) {
+    public void setRatings(Set<MovieRating> ratings) {
         this.ratings = ratings;
     }
 
-    @Overrride
+    @Override
     public boolean equals(Object o) {
         if(this == o) {
             return true;

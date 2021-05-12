@@ -1,5 +1,7 @@
 package edu.knu.se.movierecommendation;
 
+import java.util.Objects;
+
 import javax.persistence.*;
 
 @Entity
@@ -57,7 +59,7 @@ public class MovieRating {
 
     @Override
     public int hashCode() {
-        return Object.hash(this.id, this.user, this.movie, this.rating);
+        return Objects.hash(this.id, this.user, this.movie, this.rating);
     }
 
     @Override
