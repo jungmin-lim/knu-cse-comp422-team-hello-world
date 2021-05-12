@@ -44,7 +44,6 @@ public class Movie {
     public String[] getGenres() {
         return this.genres;
     }
-
     public Set<MovieRating> getRatings() {
         return ratings;
     }
