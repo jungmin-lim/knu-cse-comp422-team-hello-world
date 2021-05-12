@@ -1,25 +1,31 @@
 package edu.knu.se.movierecommendation;
 
 import java.util.Objects;
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-class User {
-    private @Id @GeneratedValue Long id;
+@Table(name="user")
+public class User {
+    @Id 
+    @GeneratedValue 
+    @Column(name="id")
+    private Long id;
+
     private String uid;
     private String passwd;
-    private HashMap<Movie, String> ratingMap;
+
+    @OneToMany 
+    @JoinTable(mappedBy="user")
+    private Set<MovieRating> ratings = new HashSet<> ();
 
     User() {}
 
-    User(String uid, String passwd, HashMap<Movie, String> ratingMap) {
+    User(String uid, String passwd) {
         this.uid = uid;
         this.passwd = passwd;
-        this.ratingMap = ratingMap;
     }
 
     public Long getId() {
@@ -64,16 +70,18 @@ class User {
         }
 
         User user = (User) o;
-        return Objects.equals(this.id, user.id) && Objects.equals(this.uid, user.uid) && Objects.equals(this.passwd, user.passwd);
+        return Objects.equals(this.id, user.id) && Objects.equals(this.uid, user.uid) 
+            && Objects.equals(this.passwd, user.passwd) && Objects.equals(this.ratings, o.ratings);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.uid, this.passwd);
+        return Objects.hash(this.id, this.uid, this.passwd, this.ratings);
     }
 
     @Override
     public String toString() {
-        return "User{" + "id=" + this.id + ", uid='" + this.uid+ '\'' + ", passwd='" + this.passwd + '\'' + '}';
+        return "User{" + "id=" + this.id + ", uid='" + this.uid+ '\'' 
+            + ", passwd='" + this.passwd + '\'' + ", ratings='" + this.ratings + '\'' + '}';
     }
 }
