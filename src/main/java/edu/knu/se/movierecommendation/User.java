@@ -40,8 +40,8 @@ public class User {
         return this.passwd;
     }
 
-    public HashMap<Movie, String> getRatingMap() {
-        return this.ratingMap;
+    public Set<MovieRating> getRatings() {
+        return this.ratings;
     }
 
     public void setId(Long id) {
@@ -56,8 +56,8 @@ public class User {
         this.passwd = passwd;
     }
 
-    public void setRatingMap(HashMap<Movie, String> ratingMap) {
-        this.ratingMap = ratingMap;
+    public void setRatings(Set<MovieRating> ratings) {
+        this.ratings = ratings;
     }
 
     @Override
