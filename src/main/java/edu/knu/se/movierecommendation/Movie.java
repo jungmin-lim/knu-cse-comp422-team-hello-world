@@ -64,7 +64,7 @@ class Movie {
         }
 
         Movie movie = (Movie) o;
-        return Objects.equals(this.id, o.id) && Objects.equals(this.movieId, o.movieId) && Objects.equals(this.title, o.title) && Obejcts.equals(this.genres, o.genres);
+        return Objects.equals(this.id, o.id) && Objects.equals(this.movieId, o.movieId) && Objects.equals(this.title, o.title) && Objects.equals(this.genres, o.genres);
     }
 
     @Override
