@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 class Movie {
-    private @Id @GneratedValue Long id;
+    private @Id @GeneratedValue Long id;
     private String movieId;
     private String title;
     private String[] genres;
