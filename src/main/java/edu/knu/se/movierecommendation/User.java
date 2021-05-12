@@ -1,6 +1,7 @@
 package edu.knu.se.movierecommendation;
 
 import java.util.Objects;
+import java.util.HashMap;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,12 +12,14 @@ class User {
     private @Id @GeneratedValue Long id;
     private String uid;
     private String passwd;
+    private HashMap<Movie, String> ratingMap;
 
     User() {}
 
-    User(String uid, String passwd) {
+    User(String uid, String passwd, HashMap<Movie, String> ratingMap) {
         this.uid = uid;
         this.passwd = passwd;
+        this.ratingMap = ratingMap;
     }
 
     public Long getId() {
@@ -31,6 +34,10 @@ class User {
         return this.passwd;
     }
 
+    public HashMap<Movie, String> getRatingMap() {
+        return this.ratingMap;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -41,6 +48,10 @@ class User {
 
     public void setPassword(String passwd) {
         this.passwd = passwd;
+    }
+
+    public void setRatingMap(HashMap<Movie, String> ratingMap) {
+        this.ratingMap = ratingMap;
     }
 
     @Override
