@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "movie_rating")
 public class MovieRating {
     @EmbeddedId
-    MovieRatigKey id;
+    MovieRatingKey id;
 
     @ManyToOne
     @MapsId("userId")
