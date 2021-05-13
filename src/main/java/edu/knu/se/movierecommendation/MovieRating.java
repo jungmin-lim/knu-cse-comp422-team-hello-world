@@ -21,9 +21,16 @@ public class MovieRating {
     private Movie movie;
 
     @Column(name = "rating")
-    private Long rating;
+    private double rating;
 
     public MovieRating() {}
+
+    public MovieRating(User user, Movie movie, double rating) {
+        this.id = new MovieRatingKey(user.getId(), movie.getId());
+        this.user = user;
+        this.movie = movie;
+        this.rating = rating;
+    }
 
     public MovieRatingKey getId() {
         return id;
@@ -37,7 +44,7 @@ public class MovieRating {
         return movie;
     }
 
-    public Long getRating() {
+    public double getRating() {
         return rating;
     }
 
@@ -53,7 +60,7 @@ public class MovieRating {
         this.movie = movie;
     }
 
-    public void setRating(Long rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 

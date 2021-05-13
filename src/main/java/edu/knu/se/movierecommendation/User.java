@@ -17,9 +17,8 @@ public class User {
     private String uid;
     private String passwd;
 
-    @OneToMany 
-    @JoinTable(mappedBy="user")
-    private Set<MovieRating> ratings = new HashSet<> ();
+    @OneToMany(mappedBy="user")
+    private Set<MovieRating> ratings = new HashSet<>();
 
     User() {}
 
@@ -76,12 +75,12 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.uid, this.passwd, this.ratings);
+        return Objects.hash(this.id, this.uid, this.passwd);
     }
 
     @Override
     public String toString() {
         return "User{" + "id=" + this.id + ", uid='" + this.uid+ '\'' 
-            + ", passwd='" + this.passwd + '\'' + ", ratings='" + this.ratings + '\'' + '}';
+            + ", passwd='" + this.passwd + '\'' + '}';
     }
 }

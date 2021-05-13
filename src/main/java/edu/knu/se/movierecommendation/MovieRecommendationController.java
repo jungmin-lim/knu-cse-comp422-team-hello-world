@@ -1,14 +1,17 @@
 package edu.knu.se.movierecommendation;
 
 import java.util.List;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Set;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -62,10 +65,11 @@ public class MovieRecommendationController {
         return userRepository.count();
     }
 
-    @GetMapping(value = "/users/{id}")
-    public List<String> getRatedMovies(String uid) {
+    @GetMapping(value = "/users/")
+    public List<String> getRatedMovies(@RequestParam("uid") String uid) {
         Set<MovieRating> ratings = userRepository.findByUid(uid).getRatings();
-        List<String> ratedMovies = new ArrayList<Long>(ratings.size());
+        List<String> ratedMovies = new ArrayList<String>(ratings.size());
+        System.out.println(ratings.size());
         for(MovieRating x : ratings) {
             ratedMovies.add(x.getMovie().getMovieId());
         }
