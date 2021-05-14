@@ -68,13 +68,9 @@ public class MovieRecommendationApplication {
 					}
 					
 					Movie movie = movieRepository.findByMovieId(ratingInfo[1]);
-					
 					MovieRating rating = new MovieRating(user, movie, Double.parseDouble(ratingInfo[2]));
 					
-					
-					
 					movieRatingRepository.save(rating);
-
 				}
 			}
 			catch(FileNotFoundException e) {
@@ -83,7 +79,6 @@ public class MovieRecommendationApplication {
 			catch(IOException e) {
 				e.printStackTrace();
 			}
-
 		};
 	}
 }

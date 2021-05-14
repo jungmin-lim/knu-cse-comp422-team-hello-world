@@ -91,6 +91,6 @@ public class Movie {
     @Override
     public String toString() {
         return "User{" + "id=" + this.id + ", movieId='" + this.movieId + '\'' 
-            + ", title='" + this.title + '\'' + ", genres='" + this.genres + '\'' + ", ratings='" + this.ratings + '\'' + '}';
+            + ", title='" + this.title + '\'' + ", genres='" + this.genres + '\'' + '}';
     }
 }
