@@ -1,9 +1,10 @@
 package edu.knu.se.movierecommendation;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +48,33 @@ public class MovieRecommendationController {
     }
 
     @Transactional
+    @PutMapping(value = "/users/{userid}/ratings")
+    public Result addMovieRating(
+            @PathVariable(name = "userid") String uid,
+            @RequestParam(value = "movie", required = true) String movieId,
+            @RequestParam(value = "rating", required = true) double rating) {
+        var result = new Result();
+
+        var user = userRepository.findByUid(uid);
+        if (user == null) {
+            result.setResult("FAILED");
+            return result;
+        }
+
+        var movie = movieRepository.findByMovieId(movieId);
+        if (movie == null) {
+            result.setResult("FAILED");
+            return result;
+        }
+
+        var ratings = user.getRatings();
+        ratings.add(new MovieRating(user, movie, rating));
+        result.setResult("SUCCESS");
+
+        return result;
+    }
+
+    @Transactional
     @DeleteMapping(value = "/users")
     public Result removeUser(String uid) {
         Result result = new Result();
@@ -56,8 +84,14 @@ public class MovieRecommendationController {
     }
 
     @GetMapping(value = "/users")
-    public List<User> listUsers() {
-        return userRepository.findAll();
+    public List<String> listUsers() {
+        List<User> users=userRepository.findAll();
+        List<String> uids= new ArrayList<String>(users.size());
+        for(User x : users) {
+            uids.add(x.getUsername());
+        }
+
+        return uids;
     }
 
     @GetMapping(value = "/users/_count_")
@@ -65,13 +99,12 @@ public class MovieRecommendationController {
         return userRepository.count();
     }
 
-    @GetMapping(value = "/users/")
-    public List<String> getRatedMovies(@RequestParam("uid") String uid) {
+    @GetMapping(value = "/users/{uid}/ratings")
+    public Map<String,Double> getRatedMovies(String uid) {
         Set<MovieRating> ratings = userRepository.findByUid(uid).getRatings();
-        List<String> ratedMovies = new ArrayList<String>(ratings.size());
-        System.out.println(ratings.size());
+        Map<String,Double> ratedMovies = new HashMap<String, Double>();
         for(MovieRating x : ratings) {
-            ratedMovies.add(x.getMovie().getMovieId());
+            ratedMovies.put(x.getMovie().getMovieId(),x.getRating());
         }
 
         return ratedMovies;
