@@ -85,12 +85,12 @@ public class Movie {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id , this.movieId, this.title, this.genres, this.ratings);
+        return Objects.hash(this.id , this.movieId, this.title, this.genres);
     }
 
     @Override
     public String toString() {
         return "User{" + "id=" + this.id + ", movieId='" + this.movieId + '\'' 
-            + ", title='" + this.title + '\'' + ", genres='" + this.genres + '\'' + ", ratings='" + this.ratings + '\'' + '}';
+            + ", title='" + this.title + '\'' + ", genres='" + this.genres + '\'' + '}';
     }
 }
