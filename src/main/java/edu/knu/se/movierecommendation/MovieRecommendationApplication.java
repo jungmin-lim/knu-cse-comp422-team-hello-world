@@ -66,10 +66,10 @@ public class MovieRecommendationApplication {
 						System.out.println("MovieId " + ratingInfo[1] + " does not exists!");
 						continue;
 					}
-					
+
 					Movie movie = movieRepository.findByMovieId(ratingInfo[1]);
 					MovieRating rating = new MovieRating(user, movie, Double.parseDouble(ratingInfo[2]));
-					
+
 					movieRatingRepository.save(rating);
 				}
 			}
@@ -79,6 +79,8 @@ public class MovieRecommendationApplication {
 			catch(IOException e) {
 				e.printStackTrace();
 			}
+
+            log.info("Finished loading csv files.");
 		};
 	}
 }

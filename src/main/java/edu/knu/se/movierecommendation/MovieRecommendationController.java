@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,6 +42,33 @@ public class MovieRecommendationController {
         }
         boolean saveResult = (userRepository.save(new User(uid, passwd)) != null);
         result.setResult(saveResult ? "SUCCESS" : "FAILED");
+        return result;
+    }
+
+    @Transactional
+    @PutMapping(value = "/users/{userid}/ratings")
+    public Result addMovieRating(
+            @PathVariable(name = "userid") String uid,
+            @RequestParam(value = "movie", required = true) String movieId,
+            @RequestParam(value = "rating", required = true) double rating) {
+        var result = new Result();
+
+        var user = userRepository.findByUid(uid);
+        if (user == null) {
+            result.setResult("FAILED");
+            return result;
+        }
+
+        var movie = movieRepository.findByMovieId(movieId);
+        if (movie == null) {
+            result.setResult("FAILED");
+            return result;
+        }
+
+        var ratings = user.getRatings();
+        ratings.add(new MovieRating(user, movie, rating));
+        result.setResult("SUCCESS");
+
         return result;
     }
 
