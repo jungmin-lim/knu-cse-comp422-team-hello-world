@@ -100,7 +100,7 @@ public class MovieRecommendationController {
     }
 
     @GetMapping(value = "/users/{uid}/ratings")
-    public Map<String,Double> getRatedMovies(String uid) {
+    public Map<String,Double> getRatedMovies(@PathVariable(name = "uid") String uid) {
         Set<MovieRating> ratings = userRepository.findByUid(uid).getRatings();
         Map<String,Double> ratedMovies = new HashMap<String, Double>();
         for(MovieRating x : ratings) {
