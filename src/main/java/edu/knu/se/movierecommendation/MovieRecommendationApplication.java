@@ -36,7 +36,7 @@ public class MovieRecommendationApplication {
                 String line = bufferedReader.readLine(); // Truncate the first line.
                 while((line = bufferedReader.readLine()) != null) {
                     String movieInfo[] = line.split(",");
-                    if (existsByMovieId(movieInfo[0])) {
+                    if (movieRepository.existsByMovieId(movieInfo[0])) {
                         log.info("Movie with id " + movieInfo[0] + " already exists!");
                         continue;
                     }
