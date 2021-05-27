@@ -19,11 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class MovieRecommendationController {
     private MovieRepository movieRepository;
     private UserRepository userRepository;
-
+    private MovieRatingRepository movieRatingRepository;
     @Autowired
-    public MovieRecommendationController(MovieRepository movieRepository, UserRepository userRepository) {
+    public MovieRecommendationController(MovieRepository movieRepository, UserRepository userRepository,MovieRatingRepository movieRatingRepository) {
         this.movieRepository = movieRepository;
         this.userRepository = userRepository;
+        this.movieRatingRepository = movieRatingRepository;
     }
 
     @GetMapping(value = "/")
@@ -33,17 +34,16 @@ public class MovieRecommendationController {
         return result;
     }
 
-    @Transactional
-    @PutMapping(value = "/users")
-    public Result addUser(String uid, String passwd) {
+    @PutMapping(value = "/users/")
+    public Result addUser(@RequestParam(value = "uid", required = true) String uid, @RequestParam(value = "passwd", required = true) String passwd) {
         Result result = new Result();
-        if (userRepository.findByUid(uid) != null) {
-            // An user with this uid already exists.
-            result.setResult("FAILED");
+        if (!userRepository.existsByUid(uid)) {
+        	userRepository.save(new User(uid, passwd));
+            result.setResult("SUCCESS");
             return result;
         }
-        boolean saveResult = (userRepository.save(new User(uid, passwd)) != null);
-        result.setResult(saveResult ? "SUCCESS" : "FAILED");
+        result.setResult("FAILED");
+        
         return result;
     }
 
@@ -68,14 +68,14 @@ public class MovieRecommendationController {
         }
 
         var ratings = user.getRatings();
-        ratings.add(new MovieRating(user, movie, rating));
+        movieRatingRepository.save(new MovieRating(user, movie, rating));
         result.setResult("SUCCESS");
 
         return result;
     }
 
     @Transactional
-    @DeleteMapping(value = "/users")
+    @DeleteMapping(value = "/users/{uid}")
     public Result removeUser(String uid) {
         Result result = new Result();
         boolean removeResult = !userRepository.removeByUid(uid).isEmpty();
