@@ -27,14 +27,7 @@ public class MovieRecommendationController {
         this.movieRatingRepository = movieRatingRepository;
     }
 
-    @GetMapping(value = "/")
-    public Result greeting() {
-        Result result = new Result();
-        result.setResult("Hello, world!");
-        return result;
-    }
-
-    @PutMapping(value = "/users/")
+    @PutMapping(value = "/users")
     public Result addUser(@RequestParam(value = "uid", required = true) String uid, @RequestParam(value = "passwd", required = true) String passwd) {
         Result result = new Result();
         if (!userRepository.existsByUid(uid)) {
@@ -47,13 +40,19 @@ public class MovieRecommendationController {
         return result;
     }
 
-    @Transactional
     @PutMapping(value = "/users/{userid}/ratings")
     public Result addMovieRating(
             @PathVariable(name = "userid") String uid,
             @RequestParam(value = "movie", required = true) String movieId,
             @RequestParam(value = "rating", required = true) double rating) {
+	
         var result = new Result();
+
+	// invalid rating value
+	if(((rating < 1.0) || (rating > 5.0)) || (((rating*2) % 1) != 0))  {
+	    result.setResult("FAILED");
+	    return result;
+	}
 
         var user = userRepository.findByUid(uid);
         if (user == null) {
@@ -75,15 +74,15 @@ public class MovieRecommendationController {
     }
 
     @Transactional
-    @DeleteMapping(value = "/users/")
-    public Result removeUser(@RequestParam(value = "uid", required = true) String uid) {
+    @DeleteMapping(value = "/users/{uid}")
+    public Result removeUser(@PathVariable(name = "uid") String uid) {
         Result result = new Result();
         boolean removeResult = !userRepository.removeByUid(uid).isEmpty();
         result.setResult(removeResult ? "SUCCESS" : "FAILED");
         return result;
     }
 
-    @GetMapping(value = "/users")
+    @GetMapping(value = "/users/")
     public List<String> listUsers() {
         List<User> users=userRepository.findAll();
         List<String> uids= new ArrayList<String>(users.size());
@@ -94,12 +93,12 @@ public class MovieRecommendationController {
         return uids;
     }
 
-    @GetMapping(value = "/users/_count_")
+    @GetMapping(value = "/users/_count_/")
     public Long countUsers() {
         return userRepository.count();
     }
 
-    @GetMapping(value = "/users/{uid}/ratings")
+    @GetMapping(value = "/users/{uid}/ratings/")
     public Map<String,Double> getRatedMovies(@PathVariable(name = "uid") String uid) {
         Set<MovieRating> ratings = userRepository.findByUid(uid).getRatings();
         Map<String,Double> ratedMovies = new HashMap<String, Double>();
