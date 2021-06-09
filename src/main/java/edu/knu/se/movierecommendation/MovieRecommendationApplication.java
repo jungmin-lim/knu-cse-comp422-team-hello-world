@@ -20,7 +20,7 @@ public class MovieRecommendationApplication {
     public static void main(String[] args) {
         SpringApplication.run(MovieRecommendationApplication.class, args);
     }
-    /*
+
     @Bean
     public CommandLineRunner demo(MovieRepository movieRepository, UserRepository userRepository,
             MovieRatingRepository movieRatingRepository) {
@@ -85,5 +85,4 @@ public class MovieRecommendationApplication {
             log.info("Finished loading csv files.");
         };
     }
-    */
 }
