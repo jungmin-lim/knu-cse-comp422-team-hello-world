@@ -32,12 +32,12 @@ public class MovieRecommendationController {
         Result result = new Result();
         result.setResult("FAILED");
 
-	if (uid.isEmpty()) {
-	    return result;
-	}
+	    if (uid.isEmpty() || passwd.isEmpty()) {
+	        return result;
+	    }
 
         if (!userRepository.existsByUid(uid)) {
-        	userRepository.save(new User(uid, passwd));
+            userRepository.save(new User(uid, passwd));
             result.setResult("SUCCESS");
             return result;
         }
