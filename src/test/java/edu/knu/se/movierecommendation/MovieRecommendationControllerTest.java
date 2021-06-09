@@ -34,6 +34,7 @@ class MovieRecommendationControllerTest {
     }
 	
 	@Test
+    @Order(1)
     public void testPutuidpasswd1() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.put("/users" + "?uid=test1&passwd=123"); //need to change
@@ -46,6 +47,7 @@ class MovieRecommendationControllerTest {
     }
 	
 	@Test
+    @Order(2)
     public void testPutuidpasswd2() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.put("/users" + "?uid=test1&passwd=123"); //need to change
@@ -58,6 +60,7 @@ class MovieRecommendationControllerTest {
     }
 	
 	@Test
+    @Order(3)
     public void testPutuidpasswd3() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.put("/users" + "?uid=&passwd=123"); //need to change
@@ -71,6 +74,7 @@ class MovieRecommendationControllerTest {
 	
 	
 	@Test
+    @Order(4)
     public void testPutuidpasswd4() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.put("/users" + "?uid=test1&passwd="); //need to change
@@ -83,6 +87,7 @@ class MovieRecommendationControllerTest {
     }
 
 	@Test
+    @Order(5)
     public void testGetusers() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.get("/users/"); //need to change
@@ -93,6 +98,7 @@ class MovieRecommendationControllerTest {
     }
 
 	@Test
+    @Order(6)
     public void testGetusers_count_() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.get("/users/_count_"); //need to change
@@ -106,6 +112,7 @@ class MovieRecommendationControllerTest {
 	
 
 	@Test
+    @Order(7)
     public void testPutuidrating1() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.put("/users/" + "test1" + "/ratings" + "?movie=1&rating=1.5"); //need to change
@@ -119,6 +126,7 @@ class MovieRecommendationControllerTest {
 	
 
 	@Test
+    @Order(8)
     public void testPutuidrating2() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.put("/users/" + "test1" + "/ratings" + "?movie=-1&rating=1.5"); //need to change
@@ -132,6 +140,7 @@ class MovieRecommendationControllerTest {
 	
 
 	@Test
+    @Order(9)
     public void testPutuidrating3() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.put("/users/" + "test1" + "/ratings" + "?movie=1&rating=-1.5"); //need to change
@@ -144,6 +153,7 @@ class MovieRecommendationControllerTest {
     }
 
 	@Test
+    @Order(10)
     public void testPutuidrating4() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.put("/users/" + "test1" + "/ratings" + "?movie=1&rating=5.5"); //need to change
@@ -156,6 +166,7 @@ class MovieRecommendationControllerTest {
     }
 
 	@Test
+    @Order(11)
     public void testPutuidrating5() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.put("/users/" + "test1" + "/ratings" + "?movie=987654321&rating=1.5"); //need to change
@@ -168,6 +179,7 @@ class MovieRecommendationControllerTest {
     }
 
 	@Test
+    @Order(12)
     public void testPutuidrating6() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.put("/users/" + "test1" + "/ratings" + "?movie=1&rating=1.3"); //need to change
@@ -180,6 +192,7 @@ class MovieRecommendationControllerTest {
     }
 	
 	@Test
+    @Order(13)
     public void testDeleteuser1() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.delete("/users/" + "test1"); //need to change
@@ -192,6 +205,7 @@ class MovieRecommendationControllerTest {
     }
 
 	@Test
+    @Order(14)
     public void testDeleteuser2() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.delete("/users/" + "test1"); //need to change
@@ -204,6 +218,7 @@ class MovieRecommendationControllerTest {
     }
 	
 	@Test
+    @Order(15)
     public void testGetusersrating() throws Exception {
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.get("/users/"+"tests1"+"/ratings"); //need to change
