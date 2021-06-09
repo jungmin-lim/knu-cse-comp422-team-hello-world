@@ -2,6 +2,7 @@ package edu.knu.se.movierecommendation;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.RunWith;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
