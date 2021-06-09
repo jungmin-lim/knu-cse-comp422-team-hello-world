@@ -38,4 +38,4 @@ RUN ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
 RUN git clone git@github.com:jungmin-lim/knu-cse-comp422-team-hello-world.git
 
-WORKDIR /root/project/knu-cse-comp422-team-hello-world
+WORKDIR /root/project/knu-cse-comp422-team-hello-world/
