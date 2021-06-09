@@ -30,12 +30,17 @@ public class MovieRecommendationController {
     @PutMapping(value = "/users")
     public Result addUser(@RequestParam(value = "uid", required = true) String uid, @RequestParam(value = "passwd", required = true) String passwd) {
         Result result = new Result();
+        result.setResult("FAILED");
+
+	if (uid.isEmpty()) {
+	    return result;
+	}
+
         if (!userRepository.existsByUid(uid)) {
         	userRepository.save(new User(uid, passwd));
             result.setResult("SUCCESS");
             return result;
         }
-        result.setResult("FAILED");
         
         return result;
     }
@@ -82,7 +87,7 @@ public class MovieRecommendationController {
         return result;
     }
 
-    @GetMapping(value = "/users/")
+    @GetMapping(value = "/users")
     public List<String> listUsers() {
         List<User> users=userRepository.findAll();
         List<String> uids= new ArrayList<String>(users.size());
@@ -93,12 +98,12 @@ public class MovieRecommendationController {
         return uids;
     }
 
-    @GetMapping(value = "/users/_count_/")
+    @GetMapping(value = "/users/_count_")
     public Long countUsers() {
         return userRepository.count();
     }
 
-    @GetMapping(value = "/users/{uid}/ratings/")
+    @GetMapping(value = "/users/{uid}/ratings")
     public Map<String,Double> getRatedMovies(@PathVariable(name = "uid") String uid) {
         Set<MovieRating> ratings = userRepository.findByUid(uid).getRatings();
         Map<String,Double> ratedMovies = new HashMap<String, Double>();
