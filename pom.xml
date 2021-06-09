@@ -55,6 +55,11 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
+		<dependency>
+			<groupId>org.junit.jupyter</groupId>
+			<artifactId>junit-jupyter-api</artifactId>
+			<version>5.7.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
